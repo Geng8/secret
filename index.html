@@ -10,55 +10,63 @@
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
             font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-            /* THE FIX: Backup color + centering */
+            /* THE BACKGROUND PHOTO */
             background: #ffe5ec url('us.jpg') no-repeat center center fixed;
             background-size: cover;
             overflow: hidden; 
             touch-action: manipulation; 
         }
 
-        /* Darkens the background slightly so text is easier to read */
+        /* Subtle dark layer so white text/buttons pop */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.25); 
+            background: rgba(0, 0, 0, 0.3); 
             z-index: 0;
         }
         
+        /* Transparent Start Page */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ffe5ec; display: flex; justify-content: center;
+            display: flex; justify-content: center;
             align-items: center; z-index: 9999;
         }
 
         .container {
-            /* Glassmorphism Effect */
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            /* HIGH TRANSPARENCY GLASS EFFECT */
+            background: rgba(255, 255, 255, 0.25); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             
             padding: 30px; border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             text-align: center; width: 85%; max-width: 300px;
             position: relative; z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        button { padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: transform 0.1s; }
-        .yes-btn { background: var(--primary); color: white; width: 100%; position: relative; }
+        h1, h2 { color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+        button { padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        
+        .yes-btn { background: var(--primary); color: white; width: 100%; position: relative; box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4); }
         .yes-btn:active { transform: scale(0.95); }
         
         .no-btn { 
-            background: #ffccd5; color: var(--primary); 
+            background: rgba(255, 204, 213, 0.9); color: var(--primary); 
             position: fixed; width: 85px; z-index: 1000;
             display: none;
             transition: 0.1s ease-out;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             border: 2px solid white;
         }
 
-        .start-btn { background: var(--primary); color: white; font-size: 18px; padding: 20px 40px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4); border: none; }
+        .start-btn { 
+            background: var(--primary); color: white; font-size: 18px; 
+            padding: 20px 40px; border-radius: 50px; 
+            box-shadow: 0 4px 20px rgba(255, 71, 126, 0.6); border: 2px solid rgba(255,255,255,0.4);
+        }
         
         .surprise-btn {
             background: #ff4d4d; color: white; margin-top: 20px; width: 100%;
@@ -66,8 +74,8 @@
             border-radius: 12px; font-weight: bold; text-align: center;
         }
 
-        .heart { position: absolute; color: var(--primary); font-size: 20px; pointer-events: none; animation: float 4s linear infinite; z-index: 5; }
-        @keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100vh); opacity: 0; } }
+        .heart { position: absolute; color: #ff477e; font-size: 20px; pointer-events: none; animation: float 4s linear infinite; z-index: 5; }
+        @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
         
         #stage-1, #stage-2, #final-screen { display: none; }
     </style>
@@ -78,14 +86,15 @@
         <source src="sumpa.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Transparent Start Page -->
     <div id="overlay">
         <button class="start-btn" onclick="initApp()">Open Gift 🎁</button>
     </div>
 
     <div id="stage-1" style="justify-content: center; align-items: center; height: 100vh; display: none;">
         <div class="container" id="card-1">
-            <h1 id="t1" style="color: var(--primary); font-size: 22px;">Happy monthsary baby</h1>
-            <h2 id="t2" style="font-size: 16px; color: #444;">tum-oka na ang i love you pleaseee :(</h2>
+            <h1 id="t1" style="font-size: 22px;">Happy monthsary baby</h1>
+            <h2 id="t2" style="font-size: 16px; opacity: 0.9;">tum-oka na ang i love you pleaseee :(</h2>
             <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
                 <button class="yes-btn" onclick="goToStage2()">I love you baby</button>
                 <div style="height: 50px;"></div> 
@@ -95,8 +104,8 @@
 
     <div id="stage-2" style="justify-content: center; align-items: center; height: 100vh; display: none;">
         <div class="container" id="card-2">
-            <h1 style="color: var(--primary); font-size: 28px;">Weh?</h1>
-            <h2 style="font-size: 18px; color: #444;">Sure ka na?</h2>
+            <h1 style="font-size: 28px;">Weh?</h1>
+            <h2 style="font-size: 18px; opacity: 0.9;">Sure ka na?</h2>
             <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
                 <button class="yes-btn" onclick="showFinal()">Yes baby</button>
                 <div style="height: 50px;"></div> 
@@ -106,8 +115,8 @@
 
     <div id="final-screen" style="justify-content: center; align-items: center; height: 100vh; display: none;">
         <div class="container">
-            <h1 style="color: var(--primary); font-size: 24px;">I love you more baby</h1>
-            <h2 style="color: #333; font-size: 18px;">happy 5th monthsary</h2>
+            <h1 style="font-size: 24px;">I love you more baby</h1>
+            <h2 style="font-size: 18px; opacity: 0.9;">happy 5th monthsary</h2>
             <a href="https://drive.google.com/file/d/1A6lXjb7Ir2BjkA4SNeUTk-2JavaCZZMO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="surprise-btn">Open for surprise 🎁</a>
         </div>
     </div>
@@ -131,7 +140,7 @@
             document.getElementById('stage-1').style.display = 'flex';
             document.getElementById('no-btn').style.display = 'block';
             setTimeout(resetNoButton, 100);
-            setInterval(createHeart, 600);
+            setInterval(createHeart, 500);
         }
 
         document.addEventListener('touchstart', () => {
@@ -151,6 +160,7 @@
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 4000);
         }
@@ -165,7 +175,7 @@
                 document.getElementById('t2').innerText = randomMsg[1];
             }
             
-            const range = 200; 
+            const range = 220; 
             const x = (card.left + card.width/2) + (Math.random() * range * 2 - range) - 40;
             const y = (card.top + card.height/2) + (Math.random() * range * 2 - range) - 25;
             
