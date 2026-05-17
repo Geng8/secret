@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>5th Monthsary ❤️</title>
+    <style>
+        :root { --primary: #ff477e; --bg: #ffe5ec; }
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            background-color: var(--bg); overflow: hidden; touch-action: manipulation; 
+        }
+        
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg); display: flex; justify-content: center;
+            align-items: center; z-index: 9999;
+        }
+
+        .container {
+            background: white; padding: 30px; border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 71, 126, 0.2);
+            text-align: center; width: 85%; max-width: 300px;
+            position: relative; z-index: 10;
+        }
+
+        button { padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .yes-btn { background: var(--primary); color: white; width: 100%; position: relative; }
+        
+        .no-btn { 
+            background: #ffccd5; color: var(--primary); 
+            position: fixed; width: 80px; z-index: 1000;
+            display: none;
+            transition: 0.1s ease-out; /* Sharper movement for desktop/laptop */
+        }
+
+        .start-btn { background: var(--primary); color: white; font-size: 18px; padding: 20px 40px; border-radius: 50px; border: none; cursor: pointer; }
+        
+        .surprise-btn {
+            background: #ff4d4d; color: white; margin-top: 20px; width: 100%;
+            display: block; text-decoration: none; line-height: 50px;
+            border-radius: 12px; font-weight: bold; text-align: center;
+        }
+
+        .heart { position: absolute; color: var(--primary); font-size: 20px; pointer-events: none; animation: float 4s linear infinite; }
+        @keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100vh); opacity: 0; } }
+        
+        #stage-1, #stage-2, #final-screen { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- RELATIVE PATH FOR GITHUB -->
+    <audio id="bgMusic" loop playsinline preload="auto">
+        <source src="sumpa.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Initial Overlay to bypass Autoplay restrictions -->
+    <div id="overlay">
+        <button class="start-btn" onclick="initApp()">Open Gift 🎁</button>
+    </div>
+
+    <div id="stage-1" style="justify-content: center; align-items: center; height: 100vh; display: none;">
+        <div class="container" id="card-1">
+            <h1 id="t1" style="color: var(--primary); font-size: 22px;">Happy monthsary baby</h1>
+            <h2 id="t2" style="font-size: 16px; color: #ff8fa3;">tum-oka na ang i love you pleaseee :(</h2>
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <button class="yes-btn" onclick="goToStage2()">I love you baby</button>
+                <div style="height: 50px;"></div> 
+            </div>
+        </div>
+    </div>
+
+    <div id="stage-2" style="justify-content: center; align-items: center; height: 100vh; display: none;">
+        <div class="container" id="card-2">
+            <h1 style="color: var(--primary); font-size: 28px;">Weh?</h1>
+            <h2 style="font-size: 18px; color: #ff8fa3;">Sure ka na?</h2>
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <button class="yes-btn" onclick="showFinal()">Yes baby</button>
+                <div style="height: 50px;"></div> 
+            </div>
+        </div>
+    </div>
+
+    <div id="final-screen" style="justify-content: center; align-items: center; height: 100vh; display: none;">
+        <div class="container">
+            <h1 style="color: var(--primary); font-size: 24px;">I love you more baby</h1>
+            <h2 style="color: #ff7096; font-size: 18px;">happy 5th monthsary</h2>
+            <!-- GOOGLE DRIVE LINK -->
+            <a href="https://drive.google.com/file/d/1A6lXjb7Ir2BjkA4SNeUTk-2JavaCZZMO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="surprise-btn">Open for surprise 🎁</a>
+        </div>
+    </div>
+
+    <button class="no-btn" id="no-btn" ontouchstart="moveBtn()" onclick="moveBtn()">No</button>
+
+    <script>
+        const messages = [
+            ["Nde gani pwede!", "I love you dapat"], 
+            ["Ihh baby :(", "Ma hibi ko"], 
+            ["Ndi moko love?", "Ahayyyy"],
+            ["Bawal No!", "Sige na baby..."]
+        ];
+
+        let currentCardId = 'card-1';
+        const music = document.getElementById('bgMusic');
+
+        function initApp() {
+            // High-compatibility play trigger
+            const playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("Music started");
+                }).catch(error => {
+                    console.log("Autoplay prevented, waiting for touch.");
+                });
+            }
+
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('stage-1').style.display = 'flex';
+            document.getElementById('no-btn').style.display = 'block';
+            setTimeout(resetNoButton, 100);
+            setInterval(createHeart, 600);
+        }
+
+        // Secondary trigger for stubborn browsers (Safari/iOS)
+        document.addEventListener('touchstart', () => {
+            if (music.paused) music.play();
+        }, { once: true });
+
+        function resetNoButton() {
+            const btn = document.getElementById('no-btn');
+            const card = document.getElementById(currentCardId).getBoundingClientRect();
+            btn.style.left = (card.left + (card.width/2) - 40) + "px";
+            btn.style.top = (card.bottom - 70) + "px";
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        function moveBtn() {
+            const btn = document.getElementById('no-btn');
+            const card = document.getElementById(currentCardId).getBoundingClientRect();
+            
+            if(currentCardId === 'card-1') {
+                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+                document.getElementById('t1').innerText = randomMsg[0];
+                document.getElementById('t2').innerText = randomMsg[1];
+            }
+            
+            const range = 180; 
+            const x = (card.left + card.width/2) + (Math.random() * range * 2 - range) - 40;
+            const y = (card.top + card.height/2) + (Math.random() * range * 2 - range) - 25;
+            
+            btn.style.left = Math.max(10, Math.min(window.innerWidth - 90, x)) + "px";
+            btn.style.top = Math.max(10, Math.min(window.innerHeight - 60, y)) + "px";
+        }
+
+        function goToStage2() {
+            document.getElementById('stage-1').style.display = 'none';
+            document.getElementById('stage-2').style.display = 'flex';
+            currentCardId = 'card-2';
+            resetNoButton();
+        }
+
+        function showFinal() {
+            document.getElementById('stage-2').style.display = 'none';
+            document.getElementById('no-btn').style.display = 'none';
+            document.getElementById('final-screen').style.display = 'flex';
+        }
+        
+        window.onresize = resetNoButton;
+    </script>
+</body>
+</html>
