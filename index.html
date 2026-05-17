@@ -5,23 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>5th Monthsary ❤️</title>
     <style>
-        :root { --primary: #ff477e; --bg-overlay: rgba(255, 229, 236, 0.5); }
+        :root { --primary: #ff477e; }
         
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
             font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-            /* BACKGROUND PHOTO SETUP */
-            background: url('us.jpg') no-repeat center center fixed;
+            /* THE FIX: Backup color + centering */
+            background: #ffe5ec url('us.jpg') no-repeat center center fixed;
             background-size: cover;
-            overflow: hidden; touch-action: manipulation; 
+            overflow: hidden; 
+            touch-action: manipulation; 
         }
 
-        /* Darkens/Softens the background photo slightly */
+        /* Darkens the background slightly so text is easier to read */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.2); 
+            background: rgba(0, 0, 0, 0.25); 
             z-index: 0;
         }
         
@@ -33,34 +34,36 @@
 
         .container {
             /* Glassmorphism Effect */
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             
             padding: 30px; border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             text-align: center; width: 85%; max-width: 300px;
             position: relative; z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        button { padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        button { padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: transform 0.1s; }
         .yes-btn { background: var(--primary); color: white; width: 100%; position: relative; }
+        .yes-btn:active { transform: scale(0.95); }
         
         .no-btn { 
             background: #ffccd5; color: var(--primary); 
-            position: fixed; width: 80px; z-index: 1000;
+            position: fixed; width: 85px; z-index: 1000;
             display: none;
-            transition: 0.15s ease-out;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.1s ease-out;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 2px solid white;
         }
 
-        .start-btn { background: var(--primary); color: white; font-size: 18px; padding: 20px 40px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4); }
+        .start-btn { background: var(--primary); color: white; font-size: 18px; padding: 20px 40px; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4); border: none; }
         
         .surprise-btn {
             background: #ff4d4d; color: white; margin-top: 20px; width: 100%;
             display: block; text-decoration: none; line-height: 50px;
-            border-radius: 12px; font-weight: bold;
+            border-radius: 12px; font-weight: bold; text-align: center;
         }
 
         .heart { position: absolute; color: var(--primary); font-size: 20px; pointer-events: none; animation: float 4s linear infinite; z-index: 5; }
@@ -82,7 +85,7 @@
     <div id="stage-1" style="justify-content: center; align-items: center; height: 100vh; display: none;">
         <div class="container" id="card-1">
             <h1 id="t1" style="color: var(--primary); font-size: 22px;">Happy monthsary baby</h1>
-            <h2 id="t2" style="font-size: 16px; color: #555;">tum-oka na ang i love you pleaseee :(</h2>
+            <h2 id="t2" style="font-size: 16px; color: #444;">tum-oka na ang i love you pleaseee :(</h2>
             <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
                 <button class="yes-btn" onclick="goToStage2()">I love you baby</button>
                 <div style="height: 50px;"></div> 
@@ -93,7 +96,7 @@
     <div id="stage-2" style="justify-content: center; align-items: center; height: 100vh; display: none;">
         <div class="container" id="card-2">
             <h1 style="color: var(--primary); font-size: 28px;">Weh?</h1>
-            <h2 style="font-size: 18px; color: #555;">Sure ka na?</h2>
+            <h2 style="font-size: 18px; color: #444;">Sure ka na?</h2>
             <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
                 <button class="yes-btn" onclick="showFinal()">Yes baby</button>
                 <div style="height: 50px;"></div> 
@@ -104,12 +107,12 @@
     <div id="final-screen" style="justify-content: center; align-items: center; height: 100vh; display: none;">
         <div class="container">
             <h1 style="color: var(--primary); font-size: 24px;">I love you more baby</h1>
-            <h2 style="color: #444; font-size: 18px;">happy 5th monthsary</h2>
+            <h2 style="color: #333; font-size: 18px;">happy 5th monthsary</h2>
             <a href="https://drive.google.com/file/d/1A6lXjb7Ir2BjkA4SNeUTk-2JavaCZZMO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="surprise-btn">Open for surprise 🎁</a>
         </div>
     </div>
 
-    <button class="no-btn" id="no-btn" ontouchstart="moveBtn()" onclick="moveBtn()">No</button>
+    <button class="no-btn" id="no-btn" onmouseover="moveBtn()" ontouchstart="moveBtn()" onclick="moveBtn()">No</button>
 
     <script>
         const messages = [
@@ -123,10 +126,7 @@
         const music = document.getElementById('bgMusic');
 
         function initApp() {
-            music.play().catch(() => {
-                // Secondary trigger if first fails
-                music.play();
-            });
+            music.play().catch(() => music.play());
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('stage-1').style.display = 'flex';
             document.getElementById('no-btn').style.display = 'block';
@@ -134,7 +134,6 @@
             setInterval(createHeart, 600);
         }
 
-        // iPhone/Safari Audio Kick
         document.addEventListener('touchstart', () => {
             if (music.paused) music.play();
         }, { once: true });
@@ -142,8 +141,8 @@
         function resetNoButton() {
             const btn = document.getElementById('no-btn');
             const card = document.getElementById(currentCardId).getBoundingClientRect();
-            btn.style.left = (card.left + (card.width/2) - 40) + "px";
-            btn.style.top = (card.bottom - 70) + "px";
+            btn.style.left = (card.left + (card.width/2) - 42) + "px";
+            btn.style.top = (card.bottom - 75) + "px";
         }
 
         function createHeart() {
@@ -166,12 +165,12 @@
                 document.getElementById('t2').innerText = randomMsg[1];
             }
             
-            const range = 160; 
+            const range = 200; 
             const x = (card.left + card.width/2) + (Math.random() * range * 2 - range) - 40;
             const y = (card.top + card.height/2) + (Math.random() * range * 2 - range) - 25;
             
-            btn.style.left = Math.max(10, Math.min(window.innerWidth - 90, x)) + "px";
-            btn.style.top = Math.max(10, Math.min(window.innerHeight - 60, y)) + "px";
+            btn.style.left = Math.max(20, Math.min(window.innerWidth - 100, x)) + "px";
+            btn.style.top = Math.max(20, Math.min(window.innerHeight - 80, y)) + "px";
         }
 
         function goToStage2() {
